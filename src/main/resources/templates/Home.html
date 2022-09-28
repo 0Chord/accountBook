@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>
+    로그인
+</h1>
+<div class="container">
+    <div>
+        <form action="/home" method="post">
+            <div class="form-group">
+                <label for="id" th:width="150px">아이디</label>
+                <input type="text" id="id" name="id" th:width="150px" placeholder="아이디를 입력하세요">
+                <br>
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" th:width="150px" placeholder="비밀번호를 입력하세요">
+                <br>
+                <button type="submit" th:width="150px">로그인</button>
+                <br>
+            </div>
+        </form>
+        <button onclick="location.href='/signup/new'">회원 가입</button>
+    </div>
+</div>
+</body>
+</html>
