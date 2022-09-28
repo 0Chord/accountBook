@@ -4,13 +4,12 @@ import java.util.Date;
 
 public class Account {
     String id;
-    String password;
-    String nickname;
     String item;
     Long price;
     Long export_sum;
     Long import_sum;
     Long sum;
+    Date date;
 
     public Long getSum() {
         return sum;
@@ -20,7 +19,6 @@ public class Account {
         this.sum = sum;
     }
 
-    Date date;
 
     public String getId() {
         return id;
@@ -28,22 +26,6 @@ public class Account {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public String getItem() {
