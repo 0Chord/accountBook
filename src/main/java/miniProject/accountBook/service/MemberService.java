@@ -18,6 +18,7 @@ public class MemberService {
 
     public String join(Member member) {
         validateDuplicateMember(member);
+        validateDuplicateNickname(member);
         memberRepository.save(member);
         return member.getId();
     }
@@ -25,7 +26,14 @@ public class MemberService {
     private void validateDuplicateMember(Member member) {
         memberRepository.findById(member.getId())
                 .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                    throw new IllegalStateException("이미 존재하는 아이디입니다.");
+                });
+    }
+
+    private void validateDuplicateNickname(Member member){
+        memberRepository.findByNickname(member.getNickname())
+                .ifPresent(m -> {
+                    throw new IllegalStateException("이미 존재하는 닉네임입니다.");
                 });
     }
 

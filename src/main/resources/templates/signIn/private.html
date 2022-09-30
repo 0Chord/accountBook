@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>가계부</title>
+</head>
+<body>
+<div class="container">
+    <table th:border="1" th:width="300px">
+        <tbody>
+            <tr>
+                <td>
+                    <a th:text="${member.nickname}"></a>
+                    <a>님 환영합니다!</a>
+                </td>
+
+                <br>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="location.href='/signIn/registration'">가계부 등록</button><br><br>
+    <button onclick="location.href='/signin/account'">가계부 보기</button>
+</div>
+</body>
+</html>
