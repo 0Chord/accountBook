@@ -18,8 +18,12 @@
             </tr>
         </tbody>
     </table>
-    <button onclick="location.href='/signIn/registration'">가계부 등록</button><br><br>
-    <button onclick="location.href='/signin/account'">가계부 보기</button>
+    <form th:action="@{/signIn/{id}/registration (id=${member.id})}" method="get">
+        <button type="submit">가계부 등록</button>
+    </form>
+    <form th:action="@{/signIn/{id}/account (id=${member.id})}" method="get">
+        <button type="submit">가계부 보기</button>
+    </form>
 </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 package miniProject.accountBook.service;
 
-import miniProject.accountBook.calculator.Calculator;
 import miniProject.accountBook.controller.CalculatorForm;
+import miniProject.accountBook.domain.Calculator;
 import miniProject.accountBook.repository.CalculatorRepository;
 import org.springframework.transaction.annotation.Transactional;
 

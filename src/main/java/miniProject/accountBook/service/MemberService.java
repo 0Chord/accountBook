@@ -1,6 +1,6 @@
 package miniProject.accountBook.service;
 
-import miniProject.accountBook.member.Member;
+import miniProject.accountBook.domain.Member;
 import miniProject.accountBook.repository.MemberRepository;
 import org.springframework.transaction.annotation.Transactional;
 

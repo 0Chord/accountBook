@@ -1,6 +1,6 @@
 package miniProject.accountBook.controller;
 
-import miniProject.accountBook.member.Member;
+import miniProject.accountBook.domain.Member;
 import miniProject.accountBook.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package miniProject.accountBook.account;
+package miniProject.accountBook.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -45,3 +45,4 @@ public class Account {
         this.date = date;
     }
 }
+

@@ -1,6 +1,7 @@
 package miniProject.accountBook.repository;
 
-import miniProject.accountBook.member.Member;
+
+import miniProject.accountBook.domain.Member;
 
 import java.util.List;
 import java.util.Optional;

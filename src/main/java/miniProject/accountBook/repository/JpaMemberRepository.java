@@ -1,7 +1,6 @@
 package miniProject.accountBook.repository;
 
-import miniProject.accountBook.member.Member;
-
+import miniProject.accountBook.domain.Member;
 
 import javax.persistence.EntityManager;
 import java.util.List;
