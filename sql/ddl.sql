@@ -15,6 +15,15 @@ create table account
     id      varchar(15),
     item     varchar(255),
     price    bigint,
+    date     DATETIME not null default CURRENT_TIMESTAMP,
+    primary key(id)
+)
+
+drop table if exists calculator CASCADE;
+
+create table calculator
+(
+    id      varchar(15),
     export_sum bigint,
     import_sum bigint,
     sum      bigint,

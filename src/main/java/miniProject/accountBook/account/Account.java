@@ -1,24 +1,17 @@
 package miniProject.accountBook.account;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class Account {
+
+    @Id
     String id;
     String item;
     Long price;
-    Long export_sum;
-    Long import_sum;
-    Long sum;
     Date date;
-
-    public Long getSum() {
-        return sum;
-    }
-
-    public void setSum(Long sum) {
-        this.sum = sum;
-    }
-
 
     public String getId() {
         return id;
@@ -42,22 +35,6 @@ public class Account {
 
     public void setPrice(Long price) {
         this.price = price;
-    }
-
-    public Long getExport_sum() {
-        return export_sum;
-    }
-
-    public void setExport_sum(Long export_sum) {
-        this.export_sum = export_sum;
-    }
-
-    public Long getImport_sum() {
-        return import_sum;
-    }
-
-    public void setImport_sum(Long import_sum) {
-        this.import_sum = import_sum;
     }
 
     public Date getDate() {

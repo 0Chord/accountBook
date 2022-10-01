@@ -1,7 +1,8 @@
 package miniProject.accountBook;
 
-import miniProject.accountBook.repository.JpaMemberRepository;
-import miniProject.accountBook.repository.MemberRepository;
+import miniProject.accountBook.repository.*;
+import miniProject.accountBook.service.AccountService;
+import miniProject.accountBook.service.CalculatorService;
 import miniProject.accountBook.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,5 +28,25 @@ public class AppConfig {
     @Bean
     public MemberRepository memberRepository() {
         return new JpaMemberRepository(em);
+    }
+
+    @Bean
+    public AccountRepository accountRepository(){
+        return new JpaAccountRepository(em);
+    }
+
+    @Bean
+    public AccountService accountService(){
+        return new AccountService(accountRepository());
+    }
+
+    @Bean
+    public CalculatorRepository calculatorRepository(){
+        return new JpaCalculatorRepository(em);
+    }
+
+    @Bean
+    public CalculatorService calculatorService(){
+        return new CalculatorService(calculatorRepository());
     }
 }
