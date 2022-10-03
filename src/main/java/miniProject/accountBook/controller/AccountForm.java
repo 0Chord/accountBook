@@ -33,6 +33,7 @@ public class AccountForm {
     }
 
     public Date getDate() {
+        Date date = new Date();
         return date;
     }
 

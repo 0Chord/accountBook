@@ -1,5 +1,8 @@
 package miniProject.accountBook.domain;
 
+import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
@@ -7,11 +10,13 @@ import java.util.Date;
 @Entity
 public class Calculator {
     @Id
-    String id;
-    Long export_sum;
-    Long import_sum;
-    Long sum;
-    Date date;
+    private String id;
+    @Column(name = "EXPORTSUM")
+    private Long exportSum;
+    @Column(name = "IMPORTSUM")
+    private Long importSum;
+    @CreatedDate
+    private Date date;
 
     public String getId() {
         return id;
@@ -21,28 +26,20 @@ public class Calculator {
         this.id = id;
     }
 
-    public Long getExport_sum() {
-        return export_sum;
+    public Long getExportSum() {
+        return exportSum;
     }
 
-    public void setExport_sum(Long export_sum) {
-        this.export_sum = export_sum;
+    public void setExportSum(Long exportSum) {
+        this.exportSum = exportSum;
     }
 
-    public Long getImport_sum() {
-        return import_sum;
+    public Long getImportSum() {
+        return importSum;
     }
 
-    public void setImport_sum(Long import_sum) {
-        this.import_sum = import_sum;
-    }
-
-    public Long getSum() {
-        return sum;
-    }
-
-    public void setSum(Long sum) {
-        this.sum = sum;
+    public void setImportSum(Long importSum) {
+        this.importSum = importSum;
     }
 
     public Date getDate() {

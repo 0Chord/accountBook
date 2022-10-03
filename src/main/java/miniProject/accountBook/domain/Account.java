@@ -1,5 +1,7 @@
 package miniProject.accountBook.domain;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
@@ -11,6 +13,7 @@ public class Account {
     String id;
     String item;
     Long price;
+    @CreatedDate
     Date date;
 
     public String getId() {

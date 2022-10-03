@@ -1,6 +1,5 @@
 package miniProject.accountBook.service;
 
-import miniProject.accountBook.controller.CalculatorForm;
 import miniProject.accountBook.domain.Calculator;
 import miniProject.accountBook.repository.CalculatorRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,12 +15,8 @@ public class CalculatorService {
         this.calculatorRepository = calculatorRepository;
     }
 
-    public String register(CalculatorForm calculatorForm) {
-        Calculator calculator = new Calculator();
-        calculator.setId(calculatorForm.getId());
-        calculator.setImport_sum(calculatorForm.getImport_sum());
-        calculator.setExport_sum(calculatorForm.getExport_sum());
-        calculator.setDate(calculatorForm.getDate());
+    public String register(Calculator calculator) {
+        calculatorRepository.save(calculator);
         return calculator.getId();
     }
 

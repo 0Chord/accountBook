@@ -7,9 +7,9 @@ import javax.persistence.Id;
 public class Member {
 
     @Id
-    String id;
-    String password;
-    String nickname;
+    private String id;
+    private String password;
+    private String nickname;
 
     public String getId() {
         return id;

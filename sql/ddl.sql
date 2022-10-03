@@ -15,8 +15,7 @@ create table account
     id      varchar(15),
     item     varchar(255),
     price    bigint,
-    date     DATETIME not null default CURRENT_TIMESTAMP,
-    primary key(id)
+    date     DATETIME not null default CURRENT_TIMESTAMP
 )
 
 drop table if exists calculator CASCADE;
@@ -24,9 +23,7 @@ drop table if exists calculator CASCADE;
 create table calculator
 (
     id      varchar(15),
-    export_sum bigint,
-    import_sum bigint,
-    sum      bigint,
-    date     DATETIME not null default CURRENT_TIMESTAMP,
-    primary key(id)
+    exportSum bigint,
+    importSum bigint,
+    date     DATETIME not null default CURRENT_TIMESTAMP
 )
