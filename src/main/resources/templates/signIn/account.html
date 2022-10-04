@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>가계부 보기</title>
+</head>
+<body>
+<div type="container">
+    <table th:border="1" th:width="200px">
+        <thead>
+            <tr>
+                <th>상품</th>
+                <th>가격</th>
+                <th>날짜</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.item}" th:witdh="200px"></td>
+            <td th:text="${account.price}" th:witdh="200px"></td>
+            <td th:text="${#dates.format(account.date, 'yyyy-MM-dd')}" th:witdh="250px"></td>
+        </tr>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

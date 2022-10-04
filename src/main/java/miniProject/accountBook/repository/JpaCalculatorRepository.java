@@ -26,8 +26,8 @@ public class JpaCalculatorRepository implements CalculatorRepository{
     }
 
     @Override
-    public Optional<Calculator> findById(String id) {
-        Calculator calculator = em.find(Calculator.class,id);
+    public Optional<Calculator> findById(String username) {
+        Calculator calculator = em.find(Calculator.class,username);
         return Optional.ofNullable(calculator);
     }
 }

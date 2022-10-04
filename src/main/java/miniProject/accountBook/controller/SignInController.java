@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -40,23 +41,30 @@ public class SignInController {
     public String account(AccountForm accountForm, SelectionForm selectionForm, @PathVariable("id") String id){
         Account account = new Account();
         Calculator calculator = new Calculator();
-        account.setId(id);
+        account.setUsername(id);
         account.setItem(accountForm.getItem());
         account.setPrice(accountForm.getPrice());
         account.setDate(accountForm.getDate());
         accountService.register(account);
-        calculator.setId(id);
+        calculator.setUsername(id);
         calculator.setDate(accountForm.getDate());
+        Optional<Calculator> result = calculatorService.findOneCalculator(id);
         if(selectionForm.getOption().equals("import")){
-            calculator.setImportSum(accountForm.getPrice());
+            calculator.setImportSum(accountForm.getPrice()+result.get().getImportSum());
             calculator.setExportSum(0L);
-        }else if(selectionForm.getOption().equals("export")){
-            calculator.setExportSum(accountForm.getPrice());
+        }else if(selectionForm.getOption().equals("export")) {
+            calculator.setExportSum(accountForm.getPrice() + result.get().getExportSum());
             calculator.setImportSum(0L);
         }
-        System.out.println("calculator.getExportSum() = " + calculator.getExportSum());
-        System.out.println("calculator.getImportSum() = " + calculator.getImportSum());
         calculatorService.register(calculator);
         return "redirect:/";
+    }
+
+    @GetMapping("{id}/account")
+    public String view(Model model, @PathVariable("id") String id){
+//        List<Account> accounts = accountService.findByIdAccount(id);
+        List<Account> accounts = accountService.findAccount();
+        model.addAttribute("accounts",accounts);
+        return "signIn/account";
     }
 }

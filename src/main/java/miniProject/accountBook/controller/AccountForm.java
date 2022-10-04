@@ -3,17 +3,17 @@ package miniProject.accountBook.controller;
 import java.util.Date;
 
 public class AccountForm {
-    private String id;
+    private String username;
     private String item;
     private Long price;
     private Date date;
 
-    public String getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getItem() {

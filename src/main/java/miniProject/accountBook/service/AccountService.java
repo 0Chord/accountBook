@@ -4,6 +4,7 @@ import miniProject.accountBook.domain.Account;
 import miniProject.accountBook.repository.AccountRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -17,10 +18,22 @@ public class AccountService {
 
     public String register(Account account){
         accountRepository.save(account);
-        return account.getId();
+        return account.getUsername();
     }
 
     public List<Account> findAccount(){
         return accountRepository.findAll();
+    }
+
+    public List<Account> findByIdAccount(String id){
+//        List<Account> accounts = accountRepository.findAll();
+//        List<Account> result = new ArrayList<Account>();
+//        for(Account account : accounts){
+//            if(account.getId().equals(id)){
+//                result.add(account);
+//            }
+//        }
+//        return result;
+        return accountRepository.findById(id);
     }
 }

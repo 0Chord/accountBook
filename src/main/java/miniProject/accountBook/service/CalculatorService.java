@@ -17,7 +17,7 @@ public class CalculatorService {
 
     public String register(Calculator calculator) {
         calculatorRepository.save(calculator);
-        return calculator.getId();
+        return calculator.getUsername();
     }
 
     public List<Calculator> findCalculators() {

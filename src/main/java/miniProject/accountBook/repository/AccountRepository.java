@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface AccountRepository {
     Account save(Account account);
     List<Account> findAll();
+    List<Account> findById(String id);
 }

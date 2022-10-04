@@ -2,28 +2,29 @@ package miniProject.accountBook.domain;
 
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class Calculator {
+
     @Id
-    private String id;
-    @Column(name = "EXPORTSUM")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long division_id;
+    private String username;
+    @Column(name = "EXPORT_SUM")
     private Long exportSum;
-    @Column(name = "IMPORTSUM")
+    @Column(name = "IMPORT_SUM")
     private Long importSum;
     @CreatedDate
     private Date date;
 
-    public String getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Long getExportSum() {
