@@ -6,10 +6,11 @@
 </head>
 <body>
 <div type="container">
-    <table th:border="1" th:width="200px">
+    <table th:border="1" th:width="500px">
         <thead>
             <tr>
                 <th>상품</th>
+                <th>타입</th>
                 <th>가격</th>
                 <th>날짜</th>
             </tr>
@@ -17,10 +18,20 @@
         <tbody>
         <tr th:each="account : ${accounts}">
             <td th:text="${account.item}" th:witdh="200px"></td>
+            <td th:text="${account.type}" th:width="200px"></td>
             <td th:text="${account.price}" th:witdh="200px"></td>
             <td th:text="${#dates.format(account.date, 'yyyy-MM-dd')}" th:witdh="250px"></td>
         </tr>
-        </tr>
+<!--        <tr>-->
+<!--            <td th:width="100px">수입</td>-->
+<!--            <td th:text="${calculator.importSum}" th:width="200px"></td>-->
+<!--            <br>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td th:width="100px">지출</td>-->
+<!--            <td th:text="${calculator.exportSum}" th:width="200px"></td>-->
+<!--            <br>-->
+<!--        </tr>-->
         </tbody>
     </table>
 </div>

@@ -45,26 +45,28 @@ public class SignInController {
         account.setItem(accountForm.getItem());
         account.setPrice(accountForm.getPrice());
         account.setDate(accountForm.getDate());
+        account.setType(selectionForm.getOption());
         accountService.register(account);
         calculator.setUsername(id);
         calculator.setDate(accountForm.getDate());
-        Optional<Calculator> result = calculatorService.findOneCalculator(id);
-        if(selectionForm.getOption().equals("import")){
-            calculator.setImportSum(accountForm.getPrice()+result.get().getImportSum());
-            calculator.setExportSum(0L);
-        }else if(selectionForm.getOption().equals("export")) {
-            calculator.setExportSum(accountForm.getPrice() + result.get().getExportSum());
-            calculator.setImportSum(0L);
-        }
-        calculatorService.register(calculator);
+//        Optional<Calculator> result = calculatorService.findOneCalculator(id);
+//        if(selectionForm.getOption().equals("import")){
+//            calculator.setImportSum(accountForm.getPrice()+result.get().getImportSum());
+//            calculator.setExportSum(0L);
+//        }else if(selectionForm.getOption().equals("export")) {
+//            calculator.setExportSum(accountForm.getPrice() + result.get().getExportSum());
+//            calculator.setImportSum(0L);
+//        }
+//        calculatorService.register(calculator);
         return "redirect:/";
     }
 
-    @GetMapping("{id}/account")
-    public String view(Model model, @PathVariable("id") String id){
-//        List<Account> accounts = accountService.findByIdAccount(id);
-        List<Account> accounts = accountService.findAccount();
+    @GetMapping("{username}/account")
+    public String view(Model model, @PathVariable("username") String username){
+        List<Account> accounts = accountService.findByIdAccount(username);
+//        Optional<Calculator> calculator = calculatorService.findOneCalculator(username);
         model.addAttribute("accounts",accounts);
+//        model.addAttribute("calculator",calculator);
         return "signIn/account";
     }
 }

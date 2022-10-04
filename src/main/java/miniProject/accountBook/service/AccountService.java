@@ -26,14 +26,6 @@ public class AccountService {
     }
 
     public List<Account> findByIdAccount(String id){
-//        List<Account> accounts = accountRepository.findAll();
-//        List<Account> result = new ArrayList<Account>();
-//        for(Account account : accounts){
-//            if(account.getId().equals(id)){
-//                result.add(account);
-//            }
-//        }
-//        return result;
         return accountRepository.findById(id);
     }
 }

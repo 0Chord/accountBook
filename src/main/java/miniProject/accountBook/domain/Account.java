@@ -15,11 +15,19 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long division_id;
     private String username;
+    private String type;
     private String item;
     private Long price;
     @CreatedDate
     Date date;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getUsername() {
         return username;
