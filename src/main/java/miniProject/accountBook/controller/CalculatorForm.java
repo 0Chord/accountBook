@@ -33,6 +33,7 @@ public class CalculatorForm {
     }
 
     public Date getDate() {
+        Date date = new Date();
         return date;
     }
 

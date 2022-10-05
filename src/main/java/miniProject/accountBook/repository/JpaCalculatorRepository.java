@@ -1,6 +1,7 @@
 package miniProject.accountBook.repository;
 
 import miniProject.accountBook.domain.Calculator;
+import miniProject.accountBook.domain.Member;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -27,7 +28,15 @@ public class JpaCalculatorRepository implements CalculatorRepository{
 
     @Override
     public Optional<Calculator> findById(String username) {
-        Calculator calculator = em.find(Calculator.class,username);
-        return Optional.ofNullable(calculator);
+        List<Calculator> result = em.createQuery("select c from Calculator c where c.username = :username", Calculator.class)
+                .setParameter("username",username)
+                .getResultList();
+        return result.stream().findAny();
+    }
+
+    @Override
+    public Calculator remove(Calculator calculator) {
+        em.remove(calculator);
+        return calculator;
     }
 }

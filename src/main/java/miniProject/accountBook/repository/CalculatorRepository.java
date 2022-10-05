@@ -10,4 +10,5 @@ public interface CalculatorRepository {
     Calculator save(Calculator calculator);
     List<Calculator> findAll();
     Optional<Calculator> findById(String id);
+    Calculator remove(Calculator calculator);
 }

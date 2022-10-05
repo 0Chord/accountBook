@@ -25,6 +25,16 @@ public class CalculatorService {
     }
 
     public Optional<Calculator> findOneCalculator(String calculatorId){
-        return calculatorRepository.findById(calculatorId);
+        Optional<Calculator> calculator = calculatorRepository.findById(calculatorId);
+        if(calculator.isPresent()){
+            return calculator;
+        }else{
+            return null;
+        }
+    }
+
+    public String delete(Calculator calculator){
+        calculatorRepository.remove(calculator);
+        return calculator.getUsername();
     }
 }

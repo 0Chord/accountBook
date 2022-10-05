@@ -46,27 +46,39 @@ public class SignInController {
         account.setPrice(accountForm.getPrice());
         account.setDate(accountForm.getDate());
         account.setType(selectionForm.getOption());
-        accountService.register(account);
         calculator.setUsername(id);
         calculator.setDate(accountForm.getDate());
-//        Optional<Calculator> result = calculatorService.findOneCalculator(id);
-//        if(selectionForm.getOption().equals("import")){
-//            calculator.setImportSum(accountForm.getPrice()+result.get().getImportSum());
-//            calculator.setExportSum(0L);
-//        }else if(selectionForm.getOption().equals("export")) {
-//            calculator.setExportSum(accountForm.getPrice() + result.get().getExportSum());
-//            calculator.setImportSum(0L);
-//        }
-//        calculatorService.register(calculator);
+        Optional<Calculator> result = calculatorService.findOneCalculator(id);
+        if(selectionForm.getOption().equals("수입")){
+            if(result!=null){
+                calculator.setImportSum(accountForm.getPrice()+result.get().getImportSum());
+                calculator.setExportSum(result.get().getExportSum());
+                calculatorService.delete(result.get());
+            }else{
+                calculator.setImportSum(accountForm.getPrice());
+                calculator.setExportSum(0L);
+            }
+        }else if(selectionForm.getOption().equals("지출")) {
+            if(result!=null){
+                calculator.setExportSum(accountForm.getPrice() + result.get().getExportSum());
+                calculator.setImportSum(result.get().getImportSum());
+                calculatorService.delete(result.get());
+            }else{
+                calculator.setExportSum(accountForm.getPrice());
+                calculator.setImportSum(0L);
+            }
+        }
+        calculatorService.register(calculator);
+        accountService.register(account);
         return "redirect:/";
     }
 
     @GetMapping("{username}/account")
     public String view(Model model, @PathVariable("username") String username){
         List<Account> accounts = accountService.findByIdAccount(username);
-//        Optional<Calculator> calculator = calculatorService.findOneCalculator(username);
+        Optional<Calculator> calculator = calculatorService.findOneCalculator(username);
         model.addAttribute("accounts",accounts);
-//        model.addAttribute("calculator",calculator);
+        model.addAttribute("calculator",calculator.get());
         return "signIn/account";
     }
 }
