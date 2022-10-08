@@ -23,9 +23,11 @@
             </div>
         </form>
         <button onclick="location.href='/signup/new'">회원 가입</button>
-        <a href="https://kauth.kakao.com/oauth/authorize?client_id=ff79af41c4ab3a014eab364fc972ee14&redirect_uri=http://localhost:8080&response_type=code">
-            <button type="button">카카오 로그인</button>
-        </a>
+        <form action="/auth" method="get">
+            <a href="https://kauth.kakao.com/oauth/authorize?client_id=ff79af41c4ab3a014eab364fc972ee14&redirect_uri=http://localhost:8080/auth&response_type=code">
+                <button type="button">카카오 로그인</button>
+            </a>
+        </form>
     </div>
 </div>
 </body>

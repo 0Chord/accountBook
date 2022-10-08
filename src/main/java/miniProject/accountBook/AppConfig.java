@@ -1,12 +1,15 @@
 package miniProject.accountBook;
 
+import miniProject.accountBook.controller.KakaoController;
 import miniProject.accountBook.repository.*;
 import miniProject.accountBook.service.AccountService;
 import miniProject.accountBook.service.CalculatorService;
 import miniProject.accountBook.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;
 
@@ -31,22 +34,27 @@ public class AppConfig {
     }
 
     @Bean
-    public AccountRepository accountRepository(){
+    public AccountRepository accountRepository() {
         return new JpaAccountRepository(em);
     }
 
     @Bean
-    public AccountService accountService(){
+    public AccountService accountService() {
         return new AccountService(accountRepository());
     }
 
     @Bean
-    public CalculatorRepository calculatorRepository(){
+    public CalculatorRepository calculatorRepository() {
         return new JpaCalculatorRepository(em);
     }
 
     @Bean
-    public CalculatorService calculatorService(){
+    public CalculatorService calculatorService() {
         return new CalculatorService(calculatorRepository());
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }
