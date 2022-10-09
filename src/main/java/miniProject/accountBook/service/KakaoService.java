@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class KakaoService {
-
     private final Logger logger = LoggerFactory.getLogger(KakaoService.class);
     private final String KAKAO_AUTH_URL = "https://kauth.kakao.com/oauth/token";
     private final String KAKAO_REQ_URL = "https://kapi.kakao.com/v2/user/me";

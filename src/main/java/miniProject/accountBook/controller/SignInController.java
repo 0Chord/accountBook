@@ -6,6 +6,8 @@ import miniProject.accountBook.domain.Member;
 import miniProject.accountBook.service.AccountService;
 import miniProject.accountBook.service.CalculatorService;
 import miniProject.accountBook.service.MemberService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +21,10 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/signIn")
 public class SignInController {
-
-    MemberService memberService;
-    AccountService accountService;
-    CalculatorService calculatorService;
+    private final Logger logger = LoggerFactory.getLogger(KakaoController.class);
+    private final MemberService memberService;
+    private final AccountService accountService;
+    private final CalculatorService calculatorService;
 
     public SignInController(MemberService memberService, AccountService accountService, CalculatorService calculatorService) {
         this.memberService = memberService;
@@ -32,9 +34,18 @@ public class SignInController {
 
     @GetMapping("{id}/registration")
     public String register(Model model, @PathVariable("id") String id){
-        Optional<Member> member = memberService.findOne(id);
-        model.addAttribute("member",member.get());
-        return "signIn/registration";
+        logger.info("memberService = " + memberService.findOne(id));
+        if(memberService.findOne(id).equals(Optional.empty())){
+            Member member = new Member();
+            member.setId(id);
+            model.addAttribute("member",member);
+            return "signIn/registration";
+        }else{
+            Optional<Member> member = memberService.findOne(id);
+            model.addAttribute("member",member.get());
+            return "signIn/registration";
+        }
+
     }
 
     @PostMapping("{id}/registration")
