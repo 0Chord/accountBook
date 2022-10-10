@@ -2,11 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{../../webapp/bootstrap.min.css}"
+          href="../../webapp/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
     <title>가계부 보기</title>
 </head>
 <body>
 <div type="container">
-    <table th:border="1" th:width="500px">
+    <table class="table">
         <tr>
             <td th:width="100px">수입</td>
             <td th:text="${calculator.importSum}" th:width="200px"></td>
@@ -26,7 +33,7 @@
     <br>
     <br>
     <br>
-    <table th:border="1" th:width="500px">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>상품</th>

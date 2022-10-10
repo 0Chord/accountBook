@@ -49,9 +49,10 @@ public class SignInController {
     }
 
     @PostMapping("{id}/registration")
-    public String account(AccountForm accountForm, SelectionForm selectionForm, @PathVariable("id") String id){
+    public String account(AccountForm accountForm, SelectionForm selectionForm, @PathVariable("id") String id, Model model){
         Account account = new Account();
         Calculator calculator = new Calculator();
+        Member member = memberService.findOne(id).get();
         account.setUsername(id);
         account.setItem(accountForm.getItem());
         account.setPrice(accountForm.getPrice());
@@ -81,7 +82,9 @@ public class SignInController {
         }
         calculatorService.register(calculator);
         accountService.register(account);
-        return "redirect:/";
+
+        model.addAttribute("member",member);
+        return "signIn/private";
     }
 
     @GetMapping("{username}/account")

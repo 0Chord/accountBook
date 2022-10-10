@@ -30,18 +30,22 @@ public class MemberService {
                 });
     }
 
-    private void validateDuplicateNickname(Member member){
+    private void validateDuplicateNickname(Member member) {
         memberRepository.findByNickname(member.getNickname())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 닉네임입니다.");
                 });
     }
 
-    public List<Member> findMembers(){
+    public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
-    public Optional<Member> findOne(String memberId){
+    public Optional<Member> findOne(String memberId) {
         return memberRepository.findById(memberId);
+    }
+
+    public Member login(String loginId, String password) {
+        return memberRepository.findById(loginId).filter(m -> m.getPassword().equals(password)).orElse(null);
     }
 }
