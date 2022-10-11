@@ -2,31 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{../../webapp/bootstrap.min.css}"
+          href="../../webapp/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+
+    </style>
     <title>가계부</title>
 </head>
 <body>
 <div class="container">
-    <table th:border="1" th:width="300px">
-        <tbody>
-            <tr>
-                <td>
-                    <a th:text="${member.nickname}"></a>
-                    <a>님 환영합니다!</a>
-                </td>
-
-                <br>
-            </tr>
-        </tbody>
-    </table>
-    <form th:action="@{/signIn/{id}/registration (id=${member.id})}" method="get">
-        <button type="submit">가계부 등록</button>
-    </form>
+    <div class="py-5 text-center">
+        <h2 th:text="|${member.nickname}님 환영합니다|"></h2>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form th:action="@{/signIn/{id}/registration (id=${member.id})}" method="get">
+                <button type="submit" class="w-100 btn btn-primary btn-lg">가계부 등록</button>
+            </form>
+        </div>
+    </div>
+    <br>
     <form th:action="@{/signIn/{id}/account (id=${member.id})}" method="get">
-        <button type="submit">가계부 보기</button>
+        <button type="submit" class="w-100 btn btn-primary btn-lg">가계부 보기</button>
     </form>
-    <a href="https://kauth.kakao.com/oauth/logout?client_id=d078d63bfea989cd9ed843a8b8c59cfe&logout_redirect_uri=http://localhost:8080">
-        <button type="button">카카오 로그아웃</button>
+    <br>
+    <a href="https://kauth.kakao.com/oauth/logout?client_id=d078d63bfea989cd9ed843a8b8c59cfe&logout_redirect_uri=http://localhost:8080"
+       class="col-sm-3 text-center">
+        <button type="button" class="w-100 btn btn-primary btn-lg">카카오 로그아웃</button>
     </a>
 </div>
+
 </body>
 </html>

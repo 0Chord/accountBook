@@ -2,21 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{../../webapp/bootstrap.min.css}"
+          href="../../webapp/bootstrap.min.css" rel="stylesheet">
     <title>가계부 등록</title>
 </head>
 <body>
-<div class="container">
-    <form th:action="@{/signIn/{id}/registration (id=${member.id})}" method="post">
-        <select name="option" id="option">
+<form th:action="@{/signIn/{id}/registration (id=${member.id})}" method="post">
+    <div class="form-group">
+        <label for="option" class="form-label mt-4">선택</label>
+        <select class="form-select" name="option" id="option">
             <option value="수입">수입</option>
             <option value="지출">지출</option>
-        </select><br>
-        <label for="item">품목</label>
-        <input type="text" id="item" name="item" placeholder="품목을 입력하세요"><br>
-        <label for="price">가격</label>
-        <input type="number" id="price" name="price" placeholder="가격을 입력하세요"><br>
-        <button type="submit">등록</button>
-    </form>
-</div>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="item" class="form-label mt-4">품목</label>
+        <input type="text" id="item" name="item" class="form-control" placeholder="품목을 입력하세요">
+    </div>
+    <div class="form-group">
+        <label for="price" class="form-label mt-4">가격</label>
+        <input type="number" id="price" name="price" class="form-control" aria-describedby="priceHelp"
+               placeholder="가격을 입력하세요">
+        <small id="priceHelp" class="form-text text-muted">반드시 숫자만 입력하시오.</small>
+    </div>
+    <button type="submit" class="btn btn-primary">등록</button>
+</form>
 </body>
 </html>

@@ -89,8 +89,10 @@ public class SignInController {
 
     @GetMapping("{username}/account")
     public String view(Model model, @PathVariable("username") String username){
+        Member member = memberService.findOne(username).get();
         List<Account> accounts = accountService.findByIdAccount(username);
         Optional<Calculator> calculator = calculatorService.findOneCalculator(username);
+        model.addAttribute("member",member);
         model.addAttribute("accounts",accounts);
         model.addAttribute("calculator",calculator.get());
         return "signIn/account";

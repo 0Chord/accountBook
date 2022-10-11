@@ -16,25 +16,15 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public String join(Member member) {
-        validateDuplicateMember(member);
-        validateDuplicateNickname(member);
+    public boolean join(Member member) {
+        if(!memberRepository.findById(member.getId()).equals(Optional.empty())){
+            return false;
+        }
+        if(!memberRepository.findByNickname(member.getNickname()).equals(Optional.empty())){
+            return false;
+        }
         memberRepository.save(member);
-        return member.getId();
-    }
-
-    private void validateDuplicateMember(Member member) {
-        memberRepository.findById(member.getId())
-                .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 아이디입니다.");
-                });
-    }
-
-    private void validateDuplicateNickname(Member member) {
-        memberRepository.findByNickname(member.getNickname())
-                .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 닉네임입니다.");
-                });
+        return true;
     }
 
     public List<Member> findMembers() {

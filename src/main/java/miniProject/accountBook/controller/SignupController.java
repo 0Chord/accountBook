@@ -3,7 +3,10 @@ package miniProject.accountBook.controller;
 import miniProject.accountBook.domain.Member;
 import miniProject.accountBook.service.MemberService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,17 +21,25 @@ public class SignupController {
     }
 
     @GetMapping("/new")
-    public String signPage(){
+    public String signPage(@ModelAttribute MemberForm memberForm){
         return "/signup/New";
     }
 
     @PostMapping("/new")
-    public String signUp(MemberForm memberForm){
+    public String signUp(@ModelAttribute @Validated MemberForm memberForm, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return "signup/New";
+        }
         Member member = new Member();
         member.setId(memberForm.getId());
         member.setPassword(memberForm.getPassword());
         member.setNickname(memberForm.getNickname());
-        memberService.join(member);
+        boolean join = memberService.join(member);
+        if(!join){
+            bindingResult.reject("signupFail","아이디 또는 닉네임이 중복됩니다.");
+            return "signup/New";
+        }
         return "redirect:/";
     }
 }
