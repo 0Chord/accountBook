@@ -35,14 +35,14 @@ public class SignInController {
     @GetMapping("{id}/registration")
     public String register(Model model, @PathVariable("id") String id){
         logger.info("memberService = " + memberService.findOne(id));
-        if(memberService.findOne(id).equals(Optional.empty())){
+        if(memberService.findOne(id)==null){
             Member member = new Member();
             member.setId(id);
             model.addAttribute("member",member);
             return "signIn/registration";
         }else{
-            Optional<Member> member = memberService.findOne(id);
-            model.addAttribute("member",member.get());
+            Member member = memberService.findOne(id);
+            model.addAttribute("member",member);
             return "signIn/registration";
         }
 
@@ -52,7 +52,7 @@ public class SignInController {
     public String account(AccountForm accountForm, SelectionForm selectionForm, @PathVariable("id") String id, Model model){
         Account account = new Account();
         Calculator calculator = new Calculator();
-        Member member = memberService.findOne(id).get();
+        Member member = memberService.findOne(id);
         account.setUsername(id);
         account.setItem(accountForm.getItem());
         account.setPrice(accountForm.getPrice());
@@ -89,7 +89,7 @@ public class SignInController {
 
     @GetMapping("{username}/account")
     public String view(Model model, @PathVariable("username") String username){
-        Member member = memberService.findOne(username).get();
+        Member member = memberService.findOne(username);
         List<Account> accounts = accountService.findByIdAccount(username);
         Optional<Calculator> calculator = calculatorService.findOneCalculator(username);
         model.addAttribute("member",member);

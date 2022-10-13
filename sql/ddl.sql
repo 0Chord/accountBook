@@ -2,9 +2,9 @@ drop table if exists member CASCADE;
 
 create table member
 (
-    id varchar(15),
-    password varchar(15),
-    nickname     varchar(255),
+    id varchar(255),
+    password varchar(255),
+    nickname     varchar(255)
 );
 
 drop table if exists account CASCADE;

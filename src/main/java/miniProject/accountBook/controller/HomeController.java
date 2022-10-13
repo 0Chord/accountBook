@@ -4,6 +4,7 @@ import miniProject.accountBook.domain.Member;
 import miniProject.accountBook.dto.LoginForm;
 import miniProject.accountBook.service.MemberService;
 import miniProject.accountBook.session.SessionConst;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,11 +37,15 @@ public class HomeController {
         if(bindingResult.hasErrors()){
             return "Home";
         }
-        Member member = memberService.login(loginForm.getLoginId(), loginForm.getPassword());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
+        Member member = memberService.findOne(loginForm.getLoginId());
         if(member == null){
             bindingResult.reject("loginFail","아이디 또는 비번이 일치하지 않습니다.");
             return "Home";
+        }
+        if(!encoder.matches(loginForm.getPassword(),member.getPassword())){
+            bindingResult.reject("loginFail","아이디 또는 비번이 일치하지 않습니다.");
         }
 
         HttpSession httpSession = request.getSession();
