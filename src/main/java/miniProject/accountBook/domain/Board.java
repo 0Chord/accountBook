@@ -11,17 +11,15 @@ import java.util.Date;
 
 @Entity
 @Data
-public class Account {
+public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long division_id;
-    private String username;
-    private String type;
-    private String item;
-    private Long price;
+    Long id;
+    String nickname;
+    String title;
+    String content;
     @CreatedDate
     Date date;
 
 }
-

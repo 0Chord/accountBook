@@ -1,11 +1,13 @@
 package miniProject.accountBook.domain;
 
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Data
 public class Calculator {
 
     @Id
@@ -19,36 +21,5 @@ public class Calculator {
     @CreatedDate
     private Date date;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Long getExportSum() {
-        return exportSum;
-    }
-
-    public void setExportSum(Long exportSum) {
-        this.exportSum = exportSum;
-    }
-
-    public Long getImportSum() {
-        return importSum;
-    }
-
-    public void setImportSum(Long importSum) {
-        this.importSum = importSum;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }
 

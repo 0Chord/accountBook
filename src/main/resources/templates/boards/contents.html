@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{../../webapp/bootstrap.min.css}"
+          href="../../webapp/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+    <title>게시판</title>
+</head>
+<body>
+<div class="container">
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">게시글</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성자</th>
+            <th scope="col">작성일자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board : ${boards}" class="table-success">
+            <td th:text="${board.id}"></td>
+            <td th:text="${board.title}" th:href="@{/view/{id} (id=${board.id})}"></td>
+            <td th:text="${board.username}"></td>
+            <td th:text="${#dates.format(board.date, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

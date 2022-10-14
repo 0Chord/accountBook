@@ -1,12 +1,11 @@
 package miniProject.accountBook;
 
-import miniProject.accountBook.controller.KakaoController;
 import miniProject.accountBook.repository.*;
 import miniProject.accountBook.service.AccountService;
+import miniProject.accountBook.service.BoardService;
 import miniProject.accountBook.service.CalculatorService;
 import miniProject.accountBook.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -56,5 +55,15 @@ public class AppConfig {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public BoardRepository boardRepository() {
+        return new JpaBoardRepository(em);
+    }
+
+    @Bean
+    public BoardService boardService() {
+        return new BoardService(boardRepository());
     }
 }
