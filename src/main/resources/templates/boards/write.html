@@ -5,13 +5,19 @@
     <title>게시글 작성</title>
     <link th:href="@{../../webapp/bootstrap.min.css}"
           href="../../webapp/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .container {
-            max-width: 560px;
-        }
-    </style>
 </head>
 <body>
-
+<form th:action="@{/boards/{id}/new (id=${member.id})}" method="post">
+    <div class="form-group">
+        <label for="title" class="form-label mt-4">제목</label>
+        <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요">
+    </div>
+    <div class="form-group">
+        <label for="content" class="form-label mt-4">내용</label>
+        <textarea cols="50" rows="20" id="content" name="content" class="form-control"></textarea>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">등록</button>
+</form>
 </body>
 </html>

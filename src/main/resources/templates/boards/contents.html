@@ -6,7 +6,7 @@
           href="../../webapp/bootstrap.min.css" rel="stylesheet">
     <style>
         .container {
-            max-width: 560px;
+            max-width: 800px;
         }
     </style>
     <title>게시판</title>
@@ -24,10 +24,15 @@
         </thead>
         <tbody>
         <tr th:each="board : ${boards}" class="table-success">
-            <td th:text="${board.id}"></td>
-            <td th:text="${board.title}" th:href="@{/view/{id} (id=${board.id})}"></td>
-            <td th:text="${board.username}"></td>
+            <td th:text="${board.order_id}"></td>
+            <td th:text="${board.title}" th:href="@{/view/{nickname} (nickname=${board.nickname})}"></td>
+            <td th:text="${board.nickname}"></td>
             <td th:text="${#dates.format(board.date, 'yyyy-MM-dd HH:mm')}"></td>
+            <td>
+                <form th:action="@{/view/{nickname} (nickname=${board.nickname})}" method="get">
+                    <button type="submit" class="btn">게시글 보기</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

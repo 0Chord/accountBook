@@ -17,10 +17,10 @@ public class MemberService {
     }
 
     public boolean join(Member member) {
-        if(!memberRepository.findById(member.getId()).equals(Optional.empty())){
+        if (!memberRepository.findById(member.getId()).equals(Optional.empty())) {
             return false;
         }
-        if(!memberRepository.findByNickname(member.getNickname()).equals(Optional.empty())){
+        if (!memberRepository.findByNickname(member.getNickname()).equals(Optional.empty())) {
             return false;
         }
         memberRepository.save(member);
@@ -29,6 +29,10 @@ public class MemberService {
 
     public List<Member> findMembers() {
         return memberRepository.findAll();
+    }
+
+    public Member findOneByNickname(String nickname) {
+        return memberRepository.findByNickname(nickname).orElse(null);
     }
 
     public Member findOne(String memberId) {
