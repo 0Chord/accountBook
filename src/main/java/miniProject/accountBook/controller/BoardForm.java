@@ -8,6 +8,7 @@ import java.util.Date;
 @Data
 public class BoardForm {
     String nickname;
+    String password;
     String title;
     String content;
     @CreatedDate

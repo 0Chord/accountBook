@@ -6,6 +6,7 @@ import miniProject.accountBook.service.BoardService;
 import miniProject.accountBook.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,11 +45,13 @@ public class BoardsController {
     @PostMapping("{id}/new")
     public String write(Model model, BoardForm boardForm, @PathVariable("id") String id){
         Member member = memberService.findOne(id);
-        logger.info("member.nickname = " + member.getNickname() );
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodingPassword = encoder.encode(boardForm.getPassword());
         Board board = new Board();
         board.setNickname(member.getNickname());
         board.setDate(boardForm.getDate());
         board.setContent(boardForm.getContent());
+        board.setPassword(encodingPassword);
         board.setTitle(boardForm.getTitle());
         boardService.writing(board);
         model.addAttribute("member",member);

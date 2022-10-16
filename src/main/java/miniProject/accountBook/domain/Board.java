@@ -15,6 +15,7 @@ public class Board {
     @Column(name="order_id")
     Long orderId;
     String nickname;
+    String password;
     String title;
     String content;
     @CreatedDate
