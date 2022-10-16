@@ -20,17 +20,17 @@ public class BoardService {
 
     public Long writing(Board board){
         boardRepository.save(board);
-        return board.getOrder_id();
+        return board.getOrderId();
     }
 
     public Long removing(Board board){
         boardRepository.remove(board);
-        return board.getOrder_id();
+        return board.getOrderId();
     }
 
     public Long updating(Board board){
         boardRepository.fetch(board);
-        return board.getOrder_id();
+        return board.getOrderId();
     }
 
     public List<Board> findBoards(){

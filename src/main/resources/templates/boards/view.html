@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{../../webapp/bootstrap.min.css}"
+          href="../../webapp/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+    <title>게시글</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <table class="table table-hover table-bordered">
+            <tbody>
+            <tr>
+                <td>번호</td>
+                <td th:text="${board.orderId}"></td>
+                <br>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td th:text="${board.title}"></td>
+                <br>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td th:text="${board.nickname}"></td>
+                <br>
+            </tr>
+            <tr>
+                <td>작성일</td>
+                <td th:text="${board.date}"></td>
+                <br>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td th:text="${board.content}" th:cols="10" th:rows="50"></td>
+                <br>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form th:action="@{/view/{id}/patch (id=${board.orderId})}" method="get">
+        <button type="submit" class="btn btn-primary">수정</button>
+    </form>
+    <br>
+    <form th:action="@{/view/{id}/delete (id=${board.orderId})}" method="get">
+        <button type="submit" class="btn btn-primary">삭제</button>
+    </form>
+</div>
+</body>
+</html>
