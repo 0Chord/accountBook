@@ -3,6 +3,7 @@ package miniProject.accountBook.controller;
 import miniProject.accountBook.domain.Account;
 import miniProject.accountBook.domain.Calculator;
 import miniProject.accountBook.domain.Member;
+import miniProject.accountBook.dto.SelectionForm;
 import miniProject.accountBook.service.AccountService;
 import miniProject.accountBook.service.CalculatorService;
 import miniProject.accountBook.service.MemberService;
@@ -33,23 +34,23 @@ public class SignInController {
     }
 
     @GetMapping("{id}/registration")
-    public String register(Model model, @PathVariable("id") String id){
+    public String register(Model model, @PathVariable("id") String id) {
         logger.info("memberService = " + memberService.findOne(id));
-        if(memberService.findOne(id)==null){
+        if (memberService.findOne(id) == null) {
             Member member = new Member();
             member.setId(id);
-            model.addAttribute("member",member);
+            model.addAttribute("member", member);
             return "signIn/registration";
-        }else{
+        } else {
             Member member = memberService.findOne(id);
-            model.addAttribute("member",member);
+            model.addAttribute("member", member);
             return "signIn/registration";
         }
 
     }
 
     @PostMapping("{id}/registration")
-    public String account(AccountForm accountForm, SelectionForm selectionForm, @PathVariable("id") String id, Model model){
+    public String account(AccountForm accountForm, SelectionForm selectionForm, @PathVariable("id") String id, Model model) {
         Account account = new Account();
         Calculator calculator = new Calculator();
         Member member = memberService.findOne(id);
@@ -61,21 +62,21 @@ public class SignInController {
         calculator.setUsername(id);
         calculator.setDate(accountForm.getDate());
         Optional<Calculator> result = calculatorService.findOneCalculator(id);
-        if(selectionForm.getOption().equals("수입")){
-            if(result!=null){
-                calculator.setImportSum(accountForm.getPrice()+result.get().getImportSum());
+        if (selectionForm.getOption().equals("수입")) {
+            if (result != null) {
+                calculator.setImportSum(accountForm.getPrice() + result.get().getImportSum());
                 calculator.setExportSum(result.get().getExportSum());
                 calculatorService.delete(result.get());
-            }else{
+            } else {
                 calculator.setImportSum(accountForm.getPrice());
                 calculator.setExportSum(0L);
             }
-        }else if(selectionForm.getOption().equals("지출")) {
-            if(result!=null){
+        } else if (selectionForm.getOption().equals("지출")) {
+            if (result != null) {
                 calculator.setExportSum(accountForm.getPrice() + result.get().getExportSum());
                 calculator.setImportSum(result.get().getImportSum());
                 calculatorService.delete(result.get());
-            }else{
+            } else {
                 calculator.setExportSum(accountForm.getPrice());
                 calculator.setImportSum(0L);
             }
@@ -83,18 +84,18 @@ public class SignInController {
         calculatorService.register(calculator);
         accountService.register(account);
 
-        model.addAttribute("member",member);
+        model.addAttribute("member", member);
         return "signIn/private";
     }
 
     @GetMapping("{username}/account")
-    public String view(Model model, @PathVariable("username") String username){
+    public String view(Model model, @PathVariable("username") String username) {
         Member member = memberService.findOne(username);
         List<Account> accounts = accountService.findByIdAccount(username);
         Optional<Calculator> calculator = calculatorService.findOneCalculator(username);
-        model.addAttribute("member",member);
-        model.addAttribute("accounts",accounts);
-        model.addAttribute("calculator",calculator.get());
+        model.addAttribute("member", member);
+        model.addAttribute("accounts", accounts);
+        model.addAttribute("calculator", calculator.get());
         return "signIn/account";
     }
 }

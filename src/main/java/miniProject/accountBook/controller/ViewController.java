@@ -40,11 +40,42 @@ public class ViewController {
         }
         BCryptPasswordEncoder decoder = new BCryptPasswordEncoder();
         if(!decoder.matches(boardForm.getPassword(),member.getPassword())){
-            bindingResult.reject("loginFail","아이디 또는 비번이 일치하지 않습니다.");
+            bindingResult.reject("loginFail","비밀번호가 일치하지 않습니다.");
             model.addAttribute("board", board);
             return "boards/view";
         }
         boardService.removing(board);
+        model.addAttribute("member",member);
+        return "signIn/private";
+    }
+
+    @GetMapping("{id}/patch")
+    public String emend(Model model, @PathVariable("id") Long orderId, @ModelAttribute BoardForm boardForm){
+        Board board = boardService.findOne(orderId).get();
+        model.addAttribute("board",board);
+        return "boards/patch";
+    }
+
+    @PostMapping("{id}/patch")
+    public String update(@ModelAttribute @Validated BoardForm boardForm, BindingResult bindingResult, Model model, @PathVariable("id") Long orderId){
+        Board board = boardService.findOne(orderId).get();
+        Member member = memberService.findOneByNickname(board.getNickname());
+        if(bindingResult.hasErrors()){
+            model.addAttribute("member",member);
+            return "signIn/private";
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if(!encoder.matches(boardForm.getPassword(),member.getPassword())){
+            bindingResult.reject("loginFail","비밀번호가 일치하지 않습니다.");
+            model.addAttribute("board", board);
+            return "boards/patch";
+        }
+        board.setTitle(boardForm.getTitle());
+        board.setContent(boardForm.getContent());
+        board.setDate(boardForm.getDate());
+        boardService.updating(board);
         model.addAttribute("member",member);
         return "signIn/private";
     }
