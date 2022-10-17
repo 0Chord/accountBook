@@ -40,7 +40,7 @@
                 <td th:text="${board.date}"></td>
                 <br>
             </tr>
-            <tr>
+            <tr class="table-warning">
                 <td>내용</td>
                 <td th:text="${board.content}" th:cols="10" th:rows="50"></td>
                 <br>
@@ -56,8 +56,9 @@
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
         </div>
-        <input type="text" id="password" name="password" th:field="*{password}" class="form-control" th:errorclas="field-error" placeholder="비밀번호를 입력하세요">
+        <input type="password" id="password" name="password" aria-describedby="passwordHelp" th:field="*{password}" class="form-control" th:errorclas="field-error" placeholder="비밀번호를 입력하세요">
         <div class="field-error" th:errors="*{password}" />
+        <small id="priceHelp" class="form-text text-muted">회원가입 시 사용한 비밀번호를 입력하시오.</small>
         <br>
         <button type="submit" class="btn btn-primary">삭제</button>
     </form>

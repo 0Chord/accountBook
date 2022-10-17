@@ -9,11 +9,6 @@
 <body>
 <form th:action="@{/boards/{id}/new (id=${member.id})}" method="post">
     <div class="form-group">
-        <label for="password" class="form-label mt-4">비밀번호</label>
-        <input type="text" id="password" name="password" class="form-control" aria-describedby="passwordHelp" placeholder="비밀번호를 입력하세요">
-        <small id="passwordHelp" class="form-text text-muted">비밀번호를 잊어버리면 삭제가 불가합니다.</small>
-    </div>
-    <div class="form-group">
         <label for="title" class="form-label mt-4">제목</label>
         <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요">
     </div>

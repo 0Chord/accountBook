@@ -39,7 +39,7 @@ public class ViewController {
             return "signIn/private";
         }
         BCryptPasswordEncoder decoder = new BCryptPasswordEncoder();
-        if(!decoder.matches(boardForm.getPassword(),board.getPassword())){
+        if(!decoder.matches(boardForm.getPassword(),member.getPassword())){
             bindingResult.reject("loginFail","아이디 또는 비번이 일치하지 않습니다.");
             model.addAttribute("board", board);
             return "boards/view";
