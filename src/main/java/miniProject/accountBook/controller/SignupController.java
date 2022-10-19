@@ -37,7 +37,8 @@ public class SignupController {
         member.setId(memberForm.getId());
         member.setPassword(securePassword);
         member.setNickname(memberForm.getNickname());
-        System.out.println("securePassword = " + securePassword);
+        member.setPhone(memberForm.getPhone());
+        member.setName(memberForm.getName());
         boolean join = memberService.join(member);
         if(!join){
             bindingResult.reject("signupFail","아이디 또는 닉네임이 중복됩니다.");

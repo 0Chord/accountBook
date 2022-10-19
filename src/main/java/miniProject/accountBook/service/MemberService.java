@@ -42,4 +42,8 @@ public class MemberService {
     public Member login(String loginId, String password) {
         return memberRepository.findById(loginId).filter(m -> m.getPassword().equals(password)).orElse(null);
     }
+
+    public Member findOneByName(String name){
+        return memberRepository.findByName(name).orElse(null);
+    }
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{../../webapp/bootstrap.min.css}"
+          href="../../webapp/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .container {
+            max-width: 650px;
+        }
+    </style>
+    <title>아이디 찾기 결과</title>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2 th:text="|${member.nickname}님의 아이디 찾기 결과입니다.|"></h2>
+    </div>
+    <br>
+    <div class="form-control">
+        <h3 th:text="|아이디 = ${member.id}|"></h3>
+    </div>
+    <br>
+    <button type="button" onclick="location.href='/'" class="btn btn-primary btn-lg">로그인 하러 가기</button>
+</div>
+</body>
+</html>

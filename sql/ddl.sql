@@ -4,7 +4,9 @@ create table member
 (
     id varchar(255),
     password varchar(255),
-    nickname     varchar(255)
+    nickname     varchar(255),
+    name varchar(255),
+    phone varchar(255)
 );
 
 drop table if exists account CASCADE;
