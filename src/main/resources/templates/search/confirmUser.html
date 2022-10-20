@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{../../webapp/bootstrap.min.css}"
+          href="../../webapp/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+    <title>확인 페이지</title>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2 th:text="|${member.nickname}님 안녕하세요.|"></h2>
+    </div>
+
+    <div class="py-5 text-center">
+        <h3 th:text="|${member.nickname}님 비밀번호를 잊으시면 변경해야 합니다.|"></h3>
+        <h3 th:text="|${member.nickname}님 비밀번호를 변경하시겠습니까?|"></h3>
+    </div>
+    <form th:action="@{/search/{id}/rewrite (id=${member.id})}" method="get">
+        <button type="submit" class="w-100 btn btn-primary btn-lg">예</button>
+    </form>
+    <button type="button" onclick="location.href='/search/redirect'" class="w-100 btn btn-primary btn-lg">아니오</button>
+</div>
+</body>
+</html>

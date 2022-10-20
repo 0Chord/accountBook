@@ -43,6 +43,11 @@ public class MemberService {
         return memberRepository.findById(loginId).filter(m -> m.getPassword().equals(password)).orElse(null);
     }
 
+    public boolean put(Member member){
+        memberRepository.update(member);
+        return true;
+    }
+
     public Member findOneByName(String name){
         return memberRepository.findByName(name).orElse(null);
     }

@@ -21,6 +21,13 @@ public class JpaMemberRepository implements MemberRepository {
     }
 
     @Override
+    public Member update(Member member) {
+        em.remove(member);
+        em.persist(member);
+        return member;
+    }
+
+    @Override
     public Optional<Member> findById(String id) {
         Member member = em.find(Member.class, id);
         return Optional.ofNullable(member);
