@@ -1,8 +1,11 @@
 package miniProject.accountBook.controller;
 
 import miniProject.accountBook.domain.Board;
+import miniProject.accountBook.domain.Calculator;
 import miniProject.accountBook.domain.Member;
+import miniProject.accountBook.dto.CheckBoxForm;
 import miniProject.accountBook.service.BoardService;
+import miniProject.accountBook.service.CalculatorService;
 import miniProject.accountBook.service.MemberService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,16 +20,21 @@ public class ViewController {
 
     BoardService boardService;
     MemberService memberService;
+    CalculatorService calculatorService;
 
-    public ViewController(BoardService boardService, MemberService memberService) {
+    public ViewController(BoardService boardService, MemberService memberService, CalculatorService calculatorService) {
         this.boardService = boardService;
         this.memberService = memberService;
+        this.calculatorService = calculatorService;
     }
 
     @GetMapping("{orderId}")
     public String viewing(Model model, @PathVariable("orderId") Long orderId,  @ModelAttribute BoardForm boardForm){
         Board board = boardService.findOne(orderId).get();
+        Member member = memberService.findOneByNickname(board.getNickname());
+        Calculator calculator = calculatorService.findOneCalculator(member.getId()).get();
         model.addAttribute("board",board);
+        model.addAttribute("calculator",calculator);
         return "boards/view";
     }
 
@@ -53,11 +61,12 @@ public class ViewController {
     public String emend(Model model, @PathVariable("id") Long orderId, @ModelAttribute BoardForm boardForm){
         Board board = boardService.findOne(orderId).get();
         model.addAttribute("board",board);
+        model.addAttribute("checkboxForm",new CheckBoxForm());
         return "boards/patch";
     }
 
     @PostMapping("{id}/patch")
-    public String update(@ModelAttribute @Validated BoardForm boardForm, BindingResult bindingResult, Model model, @PathVariable("id") Long orderId){
+    public String update(@ModelAttribute @Validated BoardForm boardForm,CheckBoxForm checkBoxForm, BindingResult bindingResult, Model model, @PathVariable("id") Long orderId){
         Board board = boardService.findOne(orderId).get();
         Member member = memberService.findOneByNickname(board.getNickname());
         if(bindingResult.hasErrors()){
@@ -75,6 +84,7 @@ public class ViewController {
         board.setTitle(boardForm.getTitle());
         board.setContent(boardForm.getContent());
         board.setDate(boardForm.getDate());
+        board.setChecked(checkBoxForm.isChecked());
         boardService.updating(board);
         model.addAttribute("member",member);
         return "signIn/private";

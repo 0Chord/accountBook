@@ -2,6 +2,7 @@ package miniProject.accountBook.controller;
 
 import miniProject.accountBook.domain.Board;
 import miniProject.accountBook.domain.Member;
+import miniProject.accountBook.dto.CheckBoxForm;
 import miniProject.accountBook.service.BoardService;
 import miniProject.accountBook.service.MemberService;
 import org.slf4j.Logger;
@@ -38,17 +39,19 @@ public class BoardsController {
     public String writingForm(Model model, @PathVariable("id") String id){
         Member member = memberService.findOne(id);
         model.addAttribute("member",member);
+        model.addAttribute("checkboxForm",new CheckBoxForm());
         return "boards/write";
     }
 
     @PostMapping("{id}/new")
-    public String write(Model model, BoardForm boardForm, @PathVariable("id") String id){
+    public String write(Model model, BoardForm boardForm, CheckBoxForm checkBoxForm, @PathVariable("id") String id){
         Member member = memberService.findOne(id);
         Board board = new Board();
         board.setNickname(member.getNickname());
         board.setDate(boardForm.getDate());
         board.setContent(boardForm.getContent());
         board.setTitle(boardForm.getTitle());
+        board.setChecked(checkBoxForm.isChecked());
         boardService.writing(board);
         model.addAttribute("member",member);
         return "signIn/private";

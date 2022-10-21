@@ -17,6 +17,11 @@
         <textarea cols="50" rows="20" id="content" name="content" class="form-control"></textarea>
     </div>
     <br>
+    <div class="form-check">
+        <input type="checkbox" id="checked" name="checked" th:field="${checkboxForm.checked}" class="form-check-input">
+        <label for="checked" class="form-check-label">가계부 표시</label>
+    </div>
+    <br>
     <button type="submit" class="btn btn-primary">등록</button>
 </form>
 </body>
