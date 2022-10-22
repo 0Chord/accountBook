@@ -63,7 +63,7 @@ public class SignInController {
         calculator.setDate(accountForm.getDate());
         Optional<Calculator> result = calculatorService.findOneCalculator(id);
         if (selectionForm.getOption().equals("수입")) {
-            if (result != null) {
+            if (result.isPresent()) {
                 calculator.setImportSum(accountForm.getPrice() + result.get().getImportSum());
                 calculator.setExportSum(result.get().getExportSum());
                 calculatorService.delete(result.get());
@@ -72,7 +72,7 @@ public class SignInController {
                 calculator.setExportSum(0L);
             }
         } else if (selectionForm.getOption().equals("지출")) {
-            if (result != null) {
+            if (result.isPresent()) {
                 calculator.setExportSum(accountForm.getPrice() + result.get().getExportSum());
                 calculator.setImportSum(result.get().getImportSum());
                 calculatorService.delete(result.get());

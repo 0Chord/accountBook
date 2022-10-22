@@ -1,8 +1,10 @@
 package miniProject.accountBook.controller;
 
+import miniProject.accountBook.domain.Member;
 import miniProject.accountBook.dto.KakaoUserBasicInfo;
 import miniProject.accountBook.dto.KakaoUserInfo;
 import miniProject.accountBook.service.KakaoService;
+import miniProject.accountBook.service.MemberService;
 import miniProject.accountBook.session.SessionConst;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +21,11 @@ public class KakaoController {
 
     private final Logger logger = LoggerFactory.getLogger(KakaoController.class);
     private final KakaoService kakaoService;
+    private final MemberService memberService;
 
-    public KakaoController(KakaoService kakaoService) {
+    public KakaoController(KakaoService kakaoService, MemberService memberService) {
         this.kakaoService = kakaoService;
+        this.memberService = memberService;
     }
 
     @RequestMapping("/auth")
@@ -35,6 +39,12 @@ public class KakaoController {
         logger.info("userBasicInfo = " + userBasicInfo);
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, userBasicInfo);
+        if(memberService.findOne(email)==null){
+            Member member = new Member();
+            member.setId(email);
+            member.setNickname(nickname);
+            memberService.join(member);
+        }
         model.addAttribute("member",userBasicInfo);
         return "signIn/private";
     }
