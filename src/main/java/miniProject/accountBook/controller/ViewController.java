@@ -33,6 +33,8 @@ public class ViewController {
         Board board = boardService.findOne(orderId).get();
         Member member = memberService.findOneByNickname(board.getNickname());
         Calculator calculator = calculatorService.findOneCalculator(member.getId()).get();
+        Long updateCount = board.getCountVisit() + 1L;
+        boardService.updateVisit(orderId, updateCount);
         model.addAttribute("board",board);
         model.addAttribute("calculator",calculator);
         return "boards/view";

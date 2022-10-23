@@ -12,7 +12,7 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="order_id")
+    @Column(name = "order_id")
     Long orderId;
     String nickname;
     String title;
@@ -20,5 +20,10 @@ public class Board {
     @CreatedDate
     Date date;
     Boolean checked;
+    @Column(name = "count_visit")
+    Long countVisit;
 
+    public void updateVisit(Long countVisit){
+        this.countVisit = countVisit;
+    }
 }

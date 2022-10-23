@@ -40,4 +40,10 @@ public class BoardService {
     public Optional<Board> findOne(Long memberId){
         return boardRepository.findById(memberId);
     }
+
+    public void updateVisit(Long id, Long visitCount){
+        Board board = boardRepository.findById(id).get();
+
+        board.updateVisit(visitCount);
+    }
 }

@@ -40,6 +40,8 @@ create table board
     nickname     varchar(255),
     title    varchar(255),
     content  varchar(1000),
+    password varchar(1000),
     checked  boolean,
+    count_visit bigint,
     date     DATETIME not null default CURRENT_TIMESTAMP
 );

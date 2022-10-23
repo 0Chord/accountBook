@@ -52,6 +52,7 @@ public class BoardsController {
         board.setContent(boardForm.getContent());
         board.setTitle(boardForm.getTitle());
         board.setChecked(checkBoxForm.isChecked());
+        board.setCountVisit(1L);
         boardService.writing(board);
         model.addAttribute("member",member);
         return "signIn/private";

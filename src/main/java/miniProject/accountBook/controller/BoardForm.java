@@ -7,12 +7,12 @@ import java.util.Date;
 
 @Data
 public class BoardForm {
-    String nickname;
-    String password;
-    String title;
-    String content;
+    private String nickname;
+    private String password;
+    private String title;
+    private String content;
     @CreatedDate
-    Date date;
+    private Date date;
 
     public Date getDate() {
         Date date = new Date();
