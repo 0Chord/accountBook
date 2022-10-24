@@ -84,7 +84,7 @@ public class SearchController {
     }
 
     @PostMapping("{id}/rewrite")
-    public String rewriting(@ModelAttribute @Validated RewritePasswordForm rewritePasswordForm,
+    public String rewriting(@ModelAttribute @Validated RewritePasswordForm rewritePasswordForm,@PathVariable("id") String id,
                             BindingResult bindingResult, Model model){
 
         System.out.println("rewritePasswordForm = " + rewritePasswordForm);
@@ -104,11 +104,7 @@ public class SearchController {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodePassword = encoder.encode(rewritePasswordForm.getPassword());
-        System.out.println("encodePassword = " + encodePassword);
-        System.out.println("member.getPassword() = " + member.getPassword());
-        member.setPassword(encodePassword);
-        memberService.put(member);
-        
+        memberService.updatePassword(id, encodePassword);
         return "redirect:/";
     }
 

@@ -81,6 +81,43 @@
         <br>
         <button type="submit" class="btn btn-primary">삭제</button>
     </form>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">댓글 번호</th>
+            <th scope="col">댓글</th>
+            <th scope="col">작성자</th>
+            <th scope="col">작성일자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment: ${comments}" class="table-success">
+            <td th:text="${comment.commentKey}"></td>
+            <td th:text="${comment.boardComment}"></td>
+            <td th:text="${comment.nickname}"></td>
+            <td th:text="${#dates.format(board.date, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form th:action="@{/view/{id}/comment (id=${board.orderId})}" method="post">
+        <div class="form-group">
+            <label for="nickname" class="form-label mt-4">작성자</label>
+            <input type="text" id="nickname" name="nickname"  class="form-control"
+                    placeholder="닉네임을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="comment" class="form-label mt-4">내용</label>
+            <textarea cols="50" rows="2" id="comment" name="comment" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="commentPassword" class="form-label mt-4">비밀번호</label>
+            <input type="password" id="commentPassword" name="commentPassword" class="form-control"
+            placeholder="비밀번호를 입력하세요">
+        </div>
+
+        <button type="submit" class="btn btn-primary">작성</button>
+    </form>
 </div>
 </body>
 </html>

@@ -83,11 +83,7 @@ public class ViewController {
             model.addAttribute("board", board);
             return "boards/patch";
         }
-        board.setTitle(boardForm.getTitle());
-        board.setContent(boardForm.getContent());
-        board.setDate(boardForm.getDate());
-        board.setChecked(checkBoxForm.isChecked());
-        boardService.updating(board);
+        boardService.updateBoard(orderId, boardForm.getContent(), boardForm.getTitle(), checkBoxForm.isChecked());
         model.addAttribute("member",member);
         return "signIn/private";
     }

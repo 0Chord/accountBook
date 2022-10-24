@@ -46,4 +46,12 @@ public class BoardService {
 
         board.updateVisit(visitCount);
     }
+
+    public void updateBoard(Long id, String content, String title, Boolean checked){
+        Board board = boardRepository.findById(id).get();
+
+        board.updateBoolean(checked);
+        board.updateContent(content);
+        board.updateTitle(title);
+    }
 }

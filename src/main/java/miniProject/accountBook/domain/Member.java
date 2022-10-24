@@ -16,4 +16,8 @@ public class Member {
     private String name;
     private String phone;
 
+    public void updatePassword(String password){
+        this.password = password;
+    }
+
 }

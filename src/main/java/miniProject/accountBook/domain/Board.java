@@ -23,7 +23,19 @@ public class Board {
     @Column(name = "count_visit")
     Long countVisit;
 
-    public void updateVisit(Long countVisit){
+    public void updateVisit(Long countVisit) {
         this.countVisit = countVisit;
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+
+    public void updateBoolean(Boolean checked){
+        this.checked = checked;
     }
 }

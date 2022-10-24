@@ -51,4 +51,9 @@ public class MemberService {
     public Member findOneByName(String name){
         return memberRepository.findByName(name).orElse(null);
     }
+
+    public void updatePassword(String id, String password){
+        Member member = memberRepository.findById(id).get();
+        member.updatePassword(password);
+    }
 }
