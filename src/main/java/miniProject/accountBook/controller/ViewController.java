@@ -2,10 +2,13 @@ package miniProject.accountBook.controller;
 
 import miniProject.accountBook.domain.Board;
 import miniProject.accountBook.domain.Calculator;
+import miniProject.accountBook.domain.Comment;
 import miniProject.accountBook.domain.Member;
 import miniProject.accountBook.dto.CheckBoxForm;
+import miniProject.accountBook.dto.CommentForm;
 import miniProject.accountBook.service.BoardService;
 import miniProject.accountBook.service.CalculatorService;
+import miniProject.accountBook.service.CommentService;
 import miniProject.accountBook.service.MemberService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/view")
 public class ViewController {
@@ -21,11 +26,13 @@ public class ViewController {
     BoardService boardService;
     MemberService memberService;
     CalculatorService calculatorService;
+    CommentService commentService;
 
-    public ViewController(BoardService boardService, MemberService memberService, CalculatorService calculatorService) {
+    public ViewController(BoardService boardService, MemberService memberService, CalculatorService calculatorService, CommentService commentService) {
         this.boardService = boardService;
         this.memberService = memberService;
         this.calculatorService = calculatorService;
+        this.commentService = commentService;
     }
 
     @GetMapping("{orderId}")
@@ -35,6 +42,8 @@ public class ViewController {
         Calculator calculator = calculatorService.findOneCalculator(member.getId()).get();
         Long updateCount = board.getCountVisit() + 1L;
         boardService.updateVisit(orderId, updateCount);
+        List<Comment> comments = commentService.findCommentsByBoardId(orderId);
+        model.addAttribute("comments",comments);
         model.addAttribute("board",board);
         model.addAttribute("calculator",calculator);
         return "boards/view";
@@ -86,5 +95,29 @@ public class ViewController {
         boardService.updateBoard(orderId, boardForm.getContent(), boardForm.getTitle(), checkBoxForm.isChecked());
         model.addAttribute("member",member);
         return "signIn/private";
+    }
+
+    @PostMapping("{id}/comment")
+    public String registerComment(@Validated CommentForm commentForm, Model model,@PathVariable("id") Long orderId){
+        Board board = boardService.findOne(orderId).get();
+        Comment comment = new Comment();
+        comment.setBoardComment(commentForm.getBoardComment());
+        comment.setCommentPassword(commentForm.getCommentPassword());
+        comment.setNickname(commentForm.getNickname());
+        comment.setDate(commentForm.getDate());
+        comment.setBoard(board);
+        commentService.store(comment);
+
+        Member member = memberService.findOneByNickname(board.getNickname());
+        Calculator calculator = calculatorService.findOneCalculator(member.getId()).get();
+        List<Comment> comments = commentService.findCommentsByBoardId(orderId);
+
+        BoardForm boardForm = new BoardForm();
+        model.addAttribute("boardForm",boardForm);
+        model.addAttribute("comments",comments);
+        model.addAttribute("board",board);
+        model.addAttribute("calculator",calculator);
+
+        return "boards/view";
     }
 }

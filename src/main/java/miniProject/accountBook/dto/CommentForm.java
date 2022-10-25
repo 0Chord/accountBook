@@ -6,10 +6,9 @@ import java.util.Date;
 
 @Data
 public class CommentForm {
-    private Long boardId;
     private String nickname;
     private String boardComment;
-    private String password;
+    private String commentPassword;
     private Boolean checked;
     private Date date;
 

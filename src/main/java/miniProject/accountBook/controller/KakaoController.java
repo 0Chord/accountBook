@@ -29,8 +29,8 @@ public class KakaoController {
     }
 
     @RequestMapping("/auth")
-    public String auth(@RequestParam(value="code", required=false) String code, Model model,
-                       HttpServletRequest request){
+    public String auth(@RequestParam(value = "code", required = false) String code, Model model,
+                       HttpServletRequest request) {
         String accessToken = kakaoService.getAccessToken(code);
         KakaoUserInfo userInfo = kakaoService.getUserInfo(accessToken);
         String email = userInfo.getKakaoAccount().getEmail();
@@ -39,13 +39,13 @@ public class KakaoController {
         logger.info("userBasicInfo = " + userBasicInfo);
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, userBasicInfo);
-        if(memberService.findOne(email)==null){
+        if (memberService.findOne(email) == null) {
             Member member = new Member();
             member.setId(email);
             member.setNickname(nickname);
             memberService.join(member);
         }
-        model.addAttribute("member",userBasicInfo);
+        model.addAttribute("member", userBasicInfo);
         return "signIn/private";
     }
 }
