@@ -6,6 +6,7 @@ import miniProject.accountBook.domain.Comment;
 import miniProject.accountBook.domain.Member;
 import miniProject.accountBook.dto.CheckBoxForm;
 import miniProject.accountBook.dto.CommentForm;
+import miniProject.accountBook.dto.CommentPasswordForm;
 import miniProject.accountBook.service.BoardService;
 import miniProject.accountBook.service.CalculatorService;
 import miniProject.accountBook.service.CommentService;
@@ -27,7 +28,6 @@ public class ViewController {
     MemberService memberService;
     CalculatorService calculatorService;
     CommentService commentService;
-
     public ViewController(BoardService boardService, MemberService memberService, CalculatorService calculatorService, CommentService commentService) {
         this.boardService = boardService;
         this.memberService = memberService;
@@ -102,22 +102,50 @@ public class ViewController {
         Board board = boardService.findOne(orderId).get();
         Comment comment = new Comment();
         comment.setBoardComment(commentForm.getBoardComment());
-        comment.setCommentPassword(commentForm.getCommentPassword());
         comment.setNickname(commentForm.getNickname());
         comment.setDate(commentForm.getDate());
         comment.setBoard(board);
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        String encodingPassword = encoder.encode(commentForm.getCommentPassword());
+        comment.setCommentPassword(encodingPassword);
+
         commentService.store(comment);
 
         Member member = memberService.findOneByNickname(board.getNickname());
         Calculator calculator = calculatorService.findOneCalculator(member.getId()).get();
         List<Comment> comments = commentService.findCommentsByBoardId(orderId);
 
+        CommentPasswordForm commentPasswordForm = new CommentPasswordForm();
         BoardForm boardForm = new BoardForm();
+        model.addAttribute("commentPasswordForm",commentPasswordForm);
         model.addAttribute("boardForm",boardForm);
         model.addAttribute("comments",comments);
         model.addAttribute("board",board);
         model.addAttribute("calculator",calculator);
 
         return "boards/view";
+    }
+
+    @PostMapping("{commentId}/deleteComment")
+    public String deleteComment(@Validated CommentPasswordForm commentPasswordForm, @PathVariable("commentId") Long commentId,Model model){
+        System.out.println("commentId = " + commentId);
+        Comment comment = commentService.findCommentByCommentKey(commentId).get();
+        System.out.println("comment = " + comment);
+        Board board = comment.getBoard();
+        Member member = memberService.findOneByNickname(board.getNickname());
+        Calculator calculator = calculatorService.findOneCalculator(member.getId()).get();
+        List<Comment> comments = commentService.findCommentsByBoardId(board.getOrderId());
+        BCryptPasswordEncoder decoder = new BCryptPasswordEncoder();
+        List<Board> boards = boardService.findBoards();
+
+        if(!decoder.matches(commentPasswordForm.getCommentDeletePassword(),comment.getCommentPassword())){
+            model.addAttribute("boards",boards);
+            return "boards/contents";
+        }
+        commentService.removeComment(comment);
+        model.addAttribute("boards",boards);
+        return "boards/contents";
     }
 }

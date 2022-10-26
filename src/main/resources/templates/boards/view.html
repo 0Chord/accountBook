@@ -6,7 +6,7 @@
           href="../../webapp/bootstrap.min.css" rel="stylesheet">
     <style>
         .container {
-            max-width: 560px;
+            max-width: 1200px;
         }
         .field-error {
             border-color: #dc3545;
@@ -92,10 +92,16 @@
         </thead>
         <tbody>
         <tr th:each="comment: ${comments}" class="table-success">
-            <td th:text="${comment.commentKey}"></td>
+            <td th:text="${comment.commentKey}" style="width:100px"></td>
             <td th:text="${comment.boardComment}"></td>
-            <td th:text="${comment.nickname}"></td>
+            <td th:text="${comment.nickname}" style="width: 100px"></td>
             <td th:text="${#dates.format(comment.date, 'yyyy-MM-dd HH:mm')}"></td>
+            <td>
+                    <form th:action="@{/view/{commentId}/deleteComment (commentId=${comment.commentKey})}" method="post">
+                    <input type="password" id="commentDeletePassword" name="commentDeletePassword" style="width: 200px;font-size: 7px ;display: inline-block" class="form-control" placeholder="비밀번호를 입력해주세요">
+                    <button type="submit" class="btn" style="display: inline-block">삭제</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

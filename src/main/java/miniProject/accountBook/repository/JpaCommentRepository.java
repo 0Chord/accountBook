@@ -4,6 +4,7 @@ import miniProject.accountBook.domain.Comment;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 public class JpaCommentRepository implements CommentRepository{
 
@@ -25,5 +26,17 @@ public class JpaCommentRepository implements CommentRepository{
                 .setParameter("id", id)
                 .getResultList();
         return result;
+    }
+
+    @Override
+    public Optional<Comment> findComment(Long commentId) {
+        Comment comment = em.find(Comment.class, commentId);
+        return Optional.ofNullable(comment);
+    }
+
+    @Override
+    public Comment deleteComment(Comment comment) {
+        em.remove(comment);
+        return comment;
     }
 }
