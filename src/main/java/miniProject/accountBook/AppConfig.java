@@ -1,7 +1,10 @@
 package miniProject.accountBook;
 
 import miniProject.accountBook.repository.*;
-import miniProject.accountBook.service.*;
+import miniProject.accountBook.service.AccountService;
+import miniProject.accountBook.service.CalculatorService;
+import miniProject.accountBook.service.CommentService;
+import miniProject.accountBook.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,16 +55,6 @@ public class AppConfig {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
-    }
-
-    @Bean
-    public BoardRepository boardRepository() {
-        return new JpaBoardRepository(em);
-    }
-
-    @Bean
-    public BoardService boardService() {
-        return new BoardService(boardRepository());
     }
 
     @Bean

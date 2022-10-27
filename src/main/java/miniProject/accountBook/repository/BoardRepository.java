@@ -1,19 +1,15 @@
 package miniProject.accountBook.repository;
 
 import miniProject.accountBook.domain.Board;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface BoardRepository {
+@Repository
+public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     Board save(Board board);
 
-    Board remove(Board board);
-
-    Board fetch(Board board);
-
-    Optional<Board> findById(Long id);
-
-    List<Board> findAll();
+    Optional<Board> findByOrderId(Long orderId);
 }

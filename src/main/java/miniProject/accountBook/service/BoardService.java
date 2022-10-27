@@ -2,6 +2,8 @@ package miniProject.accountBook.service;
 
 import miniProject.accountBook.domain.Board;
 import miniProject.accountBook.repository.BoardRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +14,7 @@ import java.util.Optional;
 @Service
 public class BoardService {
 
-    private BoardRepository boardRepository;
+    BoardRepository boardRepository;
 
     public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
@@ -24,12 +26,7 @@ public class BoardService {
     }
 
     public Long removing(Board board){
-        boardRepository.remove(board);
-        return board.getOrderId();
-    }
-
-    public Long updating(Board board){
-        boardRepository.fetch(board);
+        boardRepository.delete(board);
         return board.getOrderId();
     }
 
@@ -38,20 +35,23 @@ public class BoardService {
     }
 
     public Optional<Board> findOne(Long memberId){
-        return boardRepository.findById(memberId);
+        return boardRepository.findByOrderId(memberId);
     }
 
     public void updateVisit(Long id, Long visitCount){
-        Board board = boardRepository.findById(id).get();
+        Board board = boardRepository.findByOrderId(id).get();
 
         board.updateVisit(visitCount);
     }
 
     public void updateBoard(Long id, String content, String title, Boolean checked){
-        Board board = boardRepository.findById(id).get();
-
+        Board board = boardRepository.findByOrderId(id).get();
         board.updateBoolean(checked);
         board.updateContent(content);
         board.updateTitle(title);
+    }
+
+    public Page<Board> boardList(Pageable pageable){
+        return boardRepository.findAll(pageable);
     }
 }

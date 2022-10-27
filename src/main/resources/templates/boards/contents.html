@@ -38,6 +38,12 @@
         </tr>
         </tbody>
     </table>
+    <div style="text-align : center">
+        <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+            <a th:if="${page != nowPage}" th:href="@{/boards/contents(page=${page-1})}" th:text="${page}" style="font-size: 12px; color: brown"></a>
+            <strong th:if="${page==nowPage}" th:text="${page}" style="color:red"></strong>
+        </th:block>
+    </div>
 </div>
 </body>
 </html>
