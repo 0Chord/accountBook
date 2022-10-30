@@ -32,6 +32,7 @@ public class KakaoController {
     public String auth(@RequestParam(value = "code", required = false) String code, Model model,
                        HttpServletRequest request) {
         String accessToken = kakaoService.getAccessToken(code);
+        logger.info("accessToken = " + accessToken);
         KakaoUserInfo userInfo = kakaoService.getUserInfo(accessToken);
         String email = userInfo.getKakaoAccount().getEmail();
         String nickname = userInfo.getProperties().getNickname();
