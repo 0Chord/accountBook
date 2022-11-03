@@ -38,6 +38,10 @@
         <button type="submit" class="w-100 btn btn-primary btn-lg">게시글 쓰기</button>
     </form>
     <br>
+    <form th:action="@{/boards/{id}/mbtiForm (id=${member.id})}" method="get">
+    <button type="submit" class="w-100 btn btn-primary btn-lg">MBTI 검사하기</button>
+</form>
+    <br>
     <a href="https://kauth.kakao.com/oauth/logout?client_id=d078d63bfea989cd9ed843a8b8c59cfe&logout_redirect_uri=http://localhost:8080"
        class="col-sm-3 text-center">
         <button type="button" class="w-100 btn btn-primary btn-lg">카카오 로그아웃</button>
