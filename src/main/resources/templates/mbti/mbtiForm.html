@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MBTI 검사하기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link th:href="@{../../webapp/bootstrap.min.css}"
+          href="../../webapp/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .container {
+            max-width: 560px;
+        }
+
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2 th:text="|${member.nickname}님 검사를 시작합니다.|"></h2>
+    </div>
+
+        <form th:action="@{/mbti/{id}/registration (id=${member.id})}" method="post">
+            <div class="form-group">
+                <h5>1번 문제. 테스트</h5>
+                <label for="firstProblem" class="form-label mt-4">선택</label>
+                <select class="form-select" name="firstProblem" id="firstProblem">
+                    <option value=-2>매우 아님</option>
+                    <option value=-1>종종 아님</option>
+                    <option value=0>보통</option>
+                    <option value=1>종종 그럼</option>
+                    <option value=2>매우 그럼</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>2번 문제. 테스트</h5>
+                <label for="secondProblem" class="form-label mt-4">선택</label>
+                <select class="form-select" name="secondProblem" id="secondProblem">
+                    <option value=-2>매우 아님</option>
+                    <option value=-1>종종 아님</option>
+                    <option value=0>보통</option>
+                    <option value=1>종종 그럼</option>
+                    <option value=2>매우 그럼</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>3번 문제. 테스트</h5>
+                <label for="thirdProblem" class="form-label mt-4">선택</label>
+                <select class="form-select" name="thirdProblem" id="thirdProblem">
+                    <option value=-2>매우 아님</option>
+                    <option value=-1>종종 아님</option>
+                    <option value=0>보통</option>
+                    <option value=1>종종 그럼</option>
+                    <option value=2>매우 그럼</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>4번 문제. 테스트</h5>
+                <label for="fourthProblem" class="form-label mt-4">선택</label>
+                <select class="form-select" name="fourthProblem" id="fourthProblem">
+                    <option value=-2>매우 아님</option>
+                    <option value=-1>종종 아님</option>
+                    <option value=0>보통</option>
+                    <option value=1>종종 그럼</option>
+                    <option value=2>매우 그럼</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>5번 문제. 테스트</h5>
+                <label for="fifthProblem" class="form-label mt-4">선택</label>
+                <select class="form-select" name="fifthProblem" id="fifthProblem">
+                    <option value=-2>매우 아님</option>
+                    <option value=-1>종종 아님</option>
+                    <option value=0>보통</option>
+                    <option value=1>종종 그럼</option>
+                    <option value=2>매우 그럼</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>6번 문제. 테스트</h5>
+                <label for="sixthProblem" class="form-label mt-4">선택</label>
+                <select class="form-select" name="sixthProblem" id="sixthProblem">
+                    <option value=-2>매우 아님</option>
+                    <option value=-1>종종 아님</option>
+                    <option value=0>보통</option>
+                    <option value=1>종종 그럼</option>
+                    <option value=2>매우 그럼</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>7번 문제. 테스트</h5>
+                <label for="seventhProblem" class="form-label mt-4">선택</label>
+                <select class="form-select" name="seventhProblem" id="seventhProblem">
+                    <option value=-2>매우 아님</option>
+                    <option value=-1>종종 아님</option>
+                    <option value=0>보통</option>
+                    <option value=1>종종 그럼</option>
+                    <option value=2>매우 그럼</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>8번 문제. 테스트</h5>
+                <label for="eighthProblem" class="form-label mt-4">선택</label>
+                <select class="form-select" name="eighthProblem" id="eighthProblem">
+                    <option value=-2>매우 아님</option>
+                    <option value=-1>종종 아님</option>
+                    <option value=0>보통</option>
+                    <option value=1>종종 그럼</option>
+                    <option value=2>매우 그럼</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>9번 문제. 테스트</h5>
+                <label for="ninthProblem" class="form-label mt-4">선택</label>
+                <select class="form-select" name="ninthProblem" id="ninthProblem">
+                    <option value=-2>매우 아님</option>
+                    <option value=-1>종종 아님</option>
+                    <option value=0>보통</option>
+                    <option value=1>종종 그럼</option>
+                    <option value=2>매우 그럼</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>10번 문제. 테스트</h5>
+                <label for="tenthProblem" class="form-label mt-4">선택</label>
+                <select class="form-select" name="tenthProblem" id="tenthProblem">
+                    <option value=-2>매우 아님</option>
+                    <option value=-1>종종 아님</option>
+                    <option value=0>보통</option>
+                    <option value=1>종종 그럼</option>
+                    <option value=2>매우 그럼</option>
+                </select>
+            </div>
+            <br>
+            <button type=submit class="btn btn-lg btn-primary">제출</button>
+        </form>
+</div>
+</body>
+</html>
