@@ -4,16 +4,14 @@ import lombok.Data;
 
 @Data
 public class MbtiForm {
-    private String username;
-    private Long firstProblem;
-    private Long secondProblem;
-    private Long thirdProblem;
-    private Long fourthProblem;
-    private Long fifthProblem;
-    private Long sixthProblem;
-    private Long seventhProblem;
-    private Long eighthProblem;
-    private Long ninthProblem;
-    private Long tenthProblem;
-    private Long score;
+    private String firstProblem;
+    private String secondProblem;
+    private String thirdProblem;
+    private String fourthProblem;
+    private String fifthProblem;
+    private String sixthProblem;
+    private String seventhProblem;
+    private String eighthProblem;
+    private String ninthProblem;
+    private String tenthProblem;
 }

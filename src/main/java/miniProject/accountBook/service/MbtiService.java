@@ -17,11 +17,23 @@ public class MbtiService {
         this.mbtiRepository = mbtiRepository;
     }
 
-    public void store(Mbti mbti){
+    public void store(Mbti mbti) {
         mbtiRepository.save(mbti);
     }
 
-    public Optional<Mbti> findByName(String username){
-        return mbtiRepository.findByUsername(username);
+    public Mbti findByName(String username) {
+        System.out.println(        mbtiRepository.findByUsername(username)
+);
+        Optional<Mbti> mbti = mbtiRepository.findByUsername(username);
+        if(mbti.isEmpty()){
+            return null;
+        }else{
+            return mbti.get();
+        }
+    }
+
+    public void updateMbti(String username, String result) {
+        Mbti mbti = mbtiRepository.findByUsername(username).get();
+        mbti.updateMbti(result);
     }
 }
