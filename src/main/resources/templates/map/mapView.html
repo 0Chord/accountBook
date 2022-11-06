@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>지도 보기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link th:href="@{../../webapp/bootstrap.min.css}"
+          href="../../webapp/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>맛집 지도</h2>
+    </div>
+    <div id="map" style="width:800px;height:700px;"></div>
+</div>
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74dd4e03a24463abcf127854291534f9&libraries=clusterer"></script>
+<script>
+    let positions = [{
+        lat: 37.55111462,
+        lng: 126.9101795146,
+        info: '<div style="padding:5px;">크레이지 카츠</div>'
+    }, {
+        lat: 37.55474671,
+        lng: 126.91623553,
+        info: '<div style="padding:5px;">카와카츠</div>'
+    }, {
+        lat: 37.57512474,
+        lng: 126.97368,
+        info: '<div style="padding:5px;">정돈</div>'
+    }, {
+        lat: 36.3758196,
+        lng: 127.38220678,
+        info: '<div style="padding:5px;">성심당 본점</div>'
+    }, {
+        lat: 35.1316322458,
+        lng: 129.0753435,
+        info: '<div style="padding:5px;">이가네 떡볶이 본점</div>'
+    }, {
+        lat: 35.13163224587699,
+        lng: 129.07534350659625,
+        info: '<div style="padding:5px;">본전돼지국밥</div>'
+    }
+    ]
+    let container = document.getElementById('map');
+    let options = {
+        center: new kakao.maps.LatLng(36.627831, 127.4568115),
+        level: 13
+    };
+
+    let map = new kakao.maps.Map(container, options);
+
+    let mapTypeControl = new kakao.maps.MapTypeControl();
+
+    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+    let zoomControl = new kakao.maps.ZoomControl();
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+
+    let clusterer = new kakao.maps.MarkerClusterer({
+        map: map,
+        averageCenter: true,
+        minLevel: 10
+    })
+    markers = [];
+    for (let i = 0; i < positions.length; i++) {
+        let marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(positions[i].lat, positions[i].lng),
+            map: map
+        });
+        iwPosition = new kakao.maps.LatLng(positions[i].lat, positions[i].lng);
+        iwRemoveable = true;
+
+
+        let infoWindow = new kakao.maps.InfoWindow({
+            map: map,
+            position: iwPosition,
+            content: positions[i].info,
+            removable: iwRemoveable
+        });
+        infoWindow.open(map, marker);
+        markers.push(marker);
+    }
+    clusterer.addMarkers(markers);
+</script>
+</body>
+</html>
