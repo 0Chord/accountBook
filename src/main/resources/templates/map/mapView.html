@@ -53,7 +53,7 @@
     for (let i = 0; i < positions.length; i++) {
         let marker = new kakao.maps.Marker({
             position: new kakao.maps.LatLng(positions[i].lat, positions[i].lng),
-            clickable : true,
+            clickable: true,
             map: map
         });
         iwRemovable = true
@@ -62,12 +62,9 @@
             removable: iwRemovable
         });
         markers.push(marker);
-        kakao.maps.event.addListener(marker,'click',makeOverListener(map, marker, infoWindow));
+        kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infoWindow));
     }
     clusterer.addMarkers(markers);
-
-
-
 </script>
 </body>
 </html>

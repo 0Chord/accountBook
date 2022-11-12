@@ -40,7 +40,6 @@ public class HomeController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         Member member = memberService.findOne(loginForm.getLoginId());
-        System.out.println("loginForm.getPassword() = " + loginForm.getPassword());
         if(member == null){
             bindingResult.reject("loginFail","아이디 또는 비번이 일치하지 않습니다.");
             return "Home";

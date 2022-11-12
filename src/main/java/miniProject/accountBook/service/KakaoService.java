@@ -34,7 +34,6 @@ public class KakaoService {
             params.add("client_id", clientId);
             params.add("redirect_url", redirectURL);
             params.add("code", authorizeToken);
-
             HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
             ResponseEntity<KakaoAuthResponse> result = restTemplate.exchange(KAKAO_AUTH_URL, HttpMethod.POST, entity, KakaoAuthResponse.class);
