@@ -1,5 +1,6 @@
 package miniProject.accountBook.service;
 
+import miniProject.accountBook.dto.LocationInfo;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -36,7 +37,7 @@ public class MapService {
         return paramData.toString();
     }
 
-    public String getLocation(String keyword) {
+    public LocationInfo getLocation(String keyword) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", "KakaoAK " + REST_API_KEY);
@@ -45,11 +46,10 @@ public class MapService {
             params.put("query", keyword);
 
             HttpEntity<Map<String, Object>> entity = new HttpEntity<>(headers);
-            System.out.println("params = " + params);
-            ResponseEntity<String> result = restTemplate.exchange(SEARCH_URL + "&" + this.mapToUrlParam(params), HttpMethod.GET, entity, String.class);
-            System.out.println("result = " + result);
-            String body = result.getBody();
-            System.out.println("body = " + body);
+            ResponseEntity<LocationInfo> locationInfo = restTemplate.exchange(SEARCH_URL + "&" + this.mapToUrlParam(params), HttpMethod.GET, entity, LocationInfo.class);
+            LocationInfo info = locationInfo.getBody();
+            System.out.println("info = " + info);
+            return info;
         } catch (Exception e) {
             e.printStackTrace();
         }

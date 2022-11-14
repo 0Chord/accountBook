@@ -8,7 +8,7 @@
 
     <style>
         .container {
-            max-width: 560px;
+            max-width: 800px;
         }
 
         .field-error {
@@ -21,7 +21,6 @@
 <body>
 <div class="container">
     <form action="/map/searchLocation" th:object="${searchForm}" method="post">
-
         <div class="form-group">
             <label for="keyword" class="form-label mt-4">키워드</label>
             <input type="text" id="keyword" name="keyword" th:field="*{keyword}" class="form-control"
@@ -33,6 +32,13 @@
             <button type="submit" class="btn btn-primary btn-lg">검색</button>
         </div>
     </form>
+    <table class="table table-bordered table-hover">
+        <tr th:each="document : ${documents}" class="table-success">
+            <td th:text="|도로명 주소 : ${document.roadAddressName}|"></td>
+            <td th:text="|상호명 : ${document.placeName}|"></td>
+            <br>
+        </tr>
+    </table>
 </div>
 </body>
 </html>

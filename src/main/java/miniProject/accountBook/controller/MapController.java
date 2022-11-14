@@ -1,8 +1,10 @@
 package miniProject.accountBook.controller;
 
+import miniProject.accountBook.dto.LocationInfo;
 import miniProject.accountBook.dto.SearchForm;
 import miniProject.accountBook.service.MapService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,16 +34,16 @@ public class MapController {
     }
 
     @PostMapping("/searchLocation")
-    public String location(@ModelAttribute @Validated SearchForm searchForm, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
+    public String location(@ModelAttribute @Validated SearchForm searchForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
             return "map/searchLocation";
         }
-        System.out.println("searchForm.getKeyword() = " + searchForm.getKeyword());
-        if(searchForm.getKeyword() == ""){
-            bindingResult.reject("searchFail","키워드를 입력해주세요");
+        if (searchForm.getKeyword().equals("")) {
+            bindingResult.reject("searchFail", "키워드를 입력해주세요");
             return "map/searchLocation";
         }
-        mapService.getLocation(searchForm.getKeyword());
+        LocationInfo locationInfo = mapService.getLocation(searchForm.getKeyword());
+        model.addAttribute("documents", locationInfo.getDocuments());
         return "map/searchLocation";
     }
 }
