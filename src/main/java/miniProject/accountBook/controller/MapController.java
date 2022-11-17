@@ -1,5 +1,7 @@
 package miniProject.accountBook.controller;
 
+import miniProject.accountBook.domain.Location;
+import miniProject.accountBook.dto.LocationDto;
 import miniProject.accountBook.dto.LocationInfo;
 import miniProject.accountBook.dto.SearchForm;
 import miniProject.accountBook.service.MapService;
@@ -44,6 +46,21 @@ public class MapController {
         }
         LocationInfo locationInfo = mapService.getLocation(searchForm.getKeyword());
         model.addAttribute("documents", locationInfo.getDocuments());
+        model.addAttribute("locationDto", new LocationDto());
+        return "map/searchLocation";
+    }
+
+    @PostMapping("/registerLocation")
+    public String register(@ModelAttribute @Validated LocationDto locationDto, Model model) {
+        Location location = new Location();
+        location.setPlaceName(locationDto.getPlaceName());
+        location.setPlaceUrl(locationDto.getPlaceUrl());
+        location.setRoadAddressName(locationDto.getRoadAddressName());
+        location.setX(locationDto.getX());
+        location.setY(locationDto.getY());
+        location.setDate(locationDto.getDate());
+        mapService.store(location);
+        model.addAttribute("searchForm", new SearchForm());
         return "map/searchLocation";
     }
 }

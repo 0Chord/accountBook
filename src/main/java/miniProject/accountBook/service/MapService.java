@@ -1,6 +1,8 @@
 package miniProject.accountBook.service;
 
+import miniProject.accountBook.domain.Location;
 import miniProject.accountBook.dto.LocationInfo;
+import miniProject.accountBook.repository.LocationRepository;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,10 +20,11 @@ public class MapService {
     private final String SEARCH_URL = "https://dapi.kakao.com/v2/local/search/keyword.json?y=36.627831&x=127.4568115";
     private final RestTemplate restTemplate;
     private final String REST_API_KEY = "d078d63bfea989cd9ed843a8b8c59cfe";
-    ;
+    LocationRepository locationRepository;
 
-    public MapService(RestTemplate restTemplate) {
+    public MapService(RestTemplate restTemplate, LocationRepository locationRepository) {
         this.restTemplate = restTemplate;
+        this.locationRepository = locationRepository;
     }
 
     private static String mapToUrlParam(Map<String, Object> params) {
@@ -41,7 +44,6 @@ public class MapService {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", "KakaoAK " + REST_API_KEY);
-
             Map<String, Object> params = new HashMap<>();
             params.put("query", keyword);
 
@@ -54,5 +56,9 @@ public class MapService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void store(Location location){
+        locationRepository.save(location);
     }
 }

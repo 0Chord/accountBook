@@ -34,11 +34,19 @@
     </form>
     <table class="table table-bordered table-hover">
         <tr th:each="document : ${documents}" class="table-success">
-            <td th:text="|도로명 주소 : ${document.roadAddressName}|"></td>
-            <td th:text="|상호명 : ${document.placeName}|"></td>
-            <br>
+            <td th:text="|${document.placeName}|"></td>
+            <td th:text="|${document.roadAddressName}|"></td>
+            <td>
+                <form th:action="@{/map/registerLocation}" th:object="${locationDto}" method="post">
+                    <input type="hidden" th:name="placeName" th:value="${document.placeName}"/>
+                    <input type="hidden" th:name="placeUrl" th:value="${document.placeUrl}"/>
+                    <input type="hidden" th:name="roadAddressName" th:value="${document.roadAddressName}"/>
+                    <input type="hidden" th:name="x" th:value="${document.x}"/>
+                    <input type="hidden" th:name="y" th:value="${document.y}"/>
+                    <button type="submit" class="btn">등록</button>
+                </form>
+            </td>
         </tr>
-        <button type="submit">등록</button>
     </table>
 </div>
 </body>
